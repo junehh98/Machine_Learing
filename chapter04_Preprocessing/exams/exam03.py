@@ -26,12 +26,23 @@ Data columns (total 4 columns):
 '''
  
 # 단계1. 'nation' 칼럼 값의 Korea -> Brazil -> USA -> China 순서로 변경 
+df['nation'].unique()
 
+df['nation'] = df['nation'].astype('category')
+df['nation'].dtype
+
+df['nation'] = df['nation'].cat.set_categories(['Korea','Brazil','USA','China'])
 
 ## 단계2. 'gender','nation' 칼럼으로 k-1개 가변수를 만들어서 new_df 생성하기 
+new_df = pd.get_dummies(data=df, columns=['gender', 'nation'], 
+                        drop_first=True)
+new_df
 
 
 ## 단계3. new_df에서 'married' 칼럼을 제거하여 현재 객체 적용하기(출력결과 참고)  
+new_df = new_df.drop('married', axis=1)
+new_df
+
 '''
    height  gender_male  nation_Brazil  nation_USA  nation_China
 0     175            1              0           1             0

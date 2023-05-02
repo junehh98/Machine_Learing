@@ -32,40 +32,65 @@ Data columns (total 7 columns):
 
 ## 1. 변수 제거 : cust_no
 df = data.drop('cust_no', axis = 1)
-df.info()
+df.info() # cust_no 삭제됨 
 
 
 ### 2. 레이블 인코딩 : 트리모델 계열의 x, y변수 인코딩  
 from sklearn.preprocessing import LabelEncoder # 인코딩 도구 
+
 
 # 1) 쿠폰 반응 범주 확인 
 df.cupon_react.unique() # array(['NO', 'YES'], dtype=object) 
 
 
 # 2) 인코딩
-encoder = LabelEncoder() # encoder 객체 
+encoder = LabelEncoder()
+dir(encoder)
+
+# fit() + transform() 
 label = encoder.fit_transform(df['cupon_react']) # data 반영 
+label # 0과 1로 인코딩 확인 
+'''
+array([0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0,
+       1, 0, 1, 0, 1, 0, 1, 1])
+'''
 
 
 # 3) 칼럼 추가 
 df['label'] = label
 
 
+
 ### 3. 원-핫 인코딩 : 회귀모델 계열의 x변수 인코딩  
 
 # 1) k개 목록으로 가변수(더미변수) 만들기 
-df_dummy = pd.get_dummies(data=df) # 기준변수 포함 
+df_dummy = pd.get_dummies(data=df) # object형 기준변수 포함 
 df_dummy # age  gender_female  gender_male  ...  marry_YES  car_NO  car_YES -> (1+8)
+df_dummy.info()
+
 
 
 # 2) 특정 변수 선택   
 df_dummy2 = pd.get_dummies(data=df, columns=['label','gender','job','marry'])
 df_dummy2.info() # Data columns (total 12 columns):
-
+'''
+-- NO, YES 컬럼 추가됨 -- 
+4   job_NO           30 non-null     uint8
+5   job_YES          30 non-null     uint8
+6   marry_NO         30 non-null     uint8
+7   marry_YES        30 non-null     uint8
+8   car_NO           30 non-null     uint8
+9   car_YES          30 non-null     uint8
+10  cupon_react_NO   30 non-null     uint8
+11  cupon_react_YES  30 non-null     uint8
+'''
     
+
 # 3) k-1개 목록으로 가변수(더미변수) 만들기   
 df_dummy3 = pd.get_dummies(data=df, drop_first=True) # 기준변수 제외(권장)
 df_dummy3  
+
+
 
 
 ###############################
@@ -74,15 +99,48 @@ df_dummy3
 import seaborn as sn 
 iris = sn.load_dataset('iris')
 
+
 # 1. 가변수(dummy) : k-1개 
 iris_dummy = pd.get_dummies(data = iris, columns=['species'], drop_first=True)
 # drop_first=True : 첫번째 범주 제외(기준변수)
+iris_dummy.info()
+iris_dummy[['species_versicolor','species_virginica']]
+
 
 # 2. base 기준 변경 : 범주 순서변경('virginica' -> 'versicolor' -> 'setosa') 
-# object -> category 변환 
+# object -> category 변환 (그래야 범주의 순서 변경 가능함 )
 iris['species'] = iris['species'].astype('category')
+iris['species'].dtype
+
+# CategoricalDtype(categories=['setosa', 'versicolor', 'virginica'], ordered=False)
+
 
 iris['species'] = iris['species'].cat.set_categories(['virginica','versicolor','setosa'])
 
+
 # 3. 가변수(dummy) : k-1개 
 iris_dummy2 = pd.get_dummies(data=iris, columns=['species'], drop_first=True)
+
+iris_dummy2.info()
+iris_dummy2[['species_versicolor', 'species_setosa']]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

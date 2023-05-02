@@ -12,6 +12,7 @@ import numpy as np # np.log1p() 함수
 ### Boston 주택가격 
 boston = pd.read_csv(r'C:\ITWILL\5_Python_ML\data\BostonHousing.csv')
 boston.info()
+boston.describe()
 '''
 RangeIndex: 506 entries, 0 to 505
 Data columns (total 15 columns):
@@ -35,24 +36,38 @@ Data columns (total 15 columns):
 '''
  
 # 단계2 :  'CAT. MEDV' 변수 제거 후 new_df 만들기 
+new_df = boston.drop('CAT. MEDV', axis = 1)
+new_df.info()
+new_df.shape # (506, 14)
 
 
 # 단계3 : new_df에서 1~13칼럼으로 X변수 만들기   
+X = new_df.iloc[:,:13]
 
 
 # 단계4 : new_df에서 'MEDV' 칼럼으로 y변수 만들기 
+y = new_df['MEDV']
 
 
 # 단계5 : X변수와 y변수 요약통계량 확인하기   
+X.describe() # 각 변수마다 척도가 다름 
+y.describe()
 
 
-# 단계6. X변수 표준화 : X변수 표준화 후 칼럼명을 지정하여 new_df2 만들기  
+# 단계6. X변수 표준화 : X변수 표준화 후 칼럼명을 지정하여 new_df2 만들기 
+scaler = StandardScaler() 
+
+new_df2 = pd.DataFrame(scaler.fit_transform(X=X),
+                       columns=list(X.columns))
 
 
 # 단계7. y변수 로그화  : y변수 로그변환 후 new_df2에 'MEDV'이름으로 칼럼 추가하기   
-
+new_df2['MEDV'] = np.log1p(y)
+new_df2.info()
 
 # 단계8 : 최종결과 완성된 new_df2을 대상으로 요약통계량 확인하기(출력결과 참고) 
+new_df2.describe()
+
 '''
                CRIM            ZN  ...         LSTAT        MEDV
 count  5.060000e+02  5.060000e+02  ...  5.060000e+02  506.000000
@@ -64,6 +79,6 @@ min   -4.197819e-01 -4.877224e-01  ... -1.531127e+00    1.791759
 75%    7.396560e-03  4.877224e-02  ...  6.030188e-01    3.258097
 max    9.933931e+00  3.804234e+00  ...  3.548771e+00    3.931826
 '''
-
+new_df['MEDV'].describe()
 
 
