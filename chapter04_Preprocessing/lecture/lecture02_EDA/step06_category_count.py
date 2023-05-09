@@ -34,8 +34,10 @@ Data columns (total 14 columns):
 taxis.isna().any() #  False : 결측치 유무 
 taxis.isna().sum() # 0 : 결측치 개수 확인
 
+
 # object 자료형 
 taxis['pickup'].dtype 
+
 
 # object 범주 및 유일값 확인 
 taxis['pickup'].unique()
@@ -48,6 +50,38 @@ def object_count(column, df) :
         print('유일값 : ', df[column].unique())
         print('유일값 개수 :', df[column].nunique())
         
+        # 범주별 빈도수 시각화
+        sns.countplot(x=column, data=df)
+        plt.title(f'{column} name')
+        plt.ylabel(f'{column}개수')
+        plt.show()
+        
+
+colnames = list(taxis.columns)
+colnames
+
+for col in colnames :
+    object_count(col, taxis)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
