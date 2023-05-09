@@ -3,10 +3,12 @@
 step01_DF_merge.py
 """
 
-import pandas as pd 
+import pandas as pd
+import os
+print(os.getcwd()) 
 pd.set_option('display.max_columns', 100) # 콘솔에서 보여질 최대 칼럼 개수 
 
-path = r'C:\ITWILL\5_Python_ML\data'
+path = r'/Users/junehh98/Desktop/itwill/5_Python_ML/data'
 
 wdbc = pd.read_csv(path + '/wdbc_data.csv')
 wdbc.info()
@@ -18,6 +20,7 @@ Data columns (total 32 columns):
 
 # 전체 칼럼 가져오기 
 cols = list(wdbc.columns)
+cols
 len(cols) # 32
 
 
