@@ -18,6 +18,7 @@ X.shape # (569, 30)
 
 X.var() # 52119.70516752481
 
+
 # 2. train/test split 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=123)
@@ -26,6 +27,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 # 3. 비선형 SVM 모델 
 #help(SVC)
 obj = SVC(C=1.0, kernel='rbf', gamma='scale')
+
 '''
 기본 parameter
  C=1.0 : cost(오분류) 조절 : 결정경계 위치 조정, 반드시 양수
@@ -36,6 +38,7 @@ obj = SVC(C=1.0, kernel='rbf', gamma='scale')
   -> gamma='scale' : 1 / (n_features * X.var())
   -> gamma='auto' : 1 / n_features
 '''
+
 
 model = obj.fit(X=X_train, y=y_train)
 

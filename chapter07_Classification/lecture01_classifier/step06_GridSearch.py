@@ -21,6 +21,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # 3. 비선형 SVM 모델 
 obj = SVC(C=1.0, kernel='rbf', gamma='scale')
+
 '''
 기본 parameter
  C=1.0 : cost(오분류) 조절 : 결정경계 위치 조정
