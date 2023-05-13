@@ -13,7 +13,7 @@ import pandas as pd
 import matplotlib.pyplot as plt # 중요변수 시각화 
 
 # 단계1. 테이터셋 로드  
-dia = pd.read_csv('C:/ITWILL/5_Python_ML/data/diabetes.csv', header=None) # 제목 없음 
+dia = pd.read_csv('/Users/junehh98/Desktop/itwill/5_Python_ML/data/diabetes.csv', header=None) # 제목 없음 
 print(dia.info())
 
 # 칼럼명 추가 

@@ -15,7 +15,7 @@ from sklearn.preprocessing import LabelEncoder # 인코딩 도구
 import matplotlib.pyplot as plt # 중요변수 시각화 
 
 # 1. 화장품 데이터(skin.csv) 가져오기 
-df = pd.read_csv(r"C:\ITWILL\5_Python_ML\data\skin.csv")
+df = pd.read_csv(r"/Users/junehh98/Desktop/itwill/5_Python_ML/data/skin.csv")
 df.info()
 '''
 RangeIndex: 30 entries, 0 to 29
@@ -70,6 +70,7 @@ model = DecisionTreeClassifier().fit(X_train, y_train) # ValueError
 # ValueError: could not convert string to float: 'male'
 
 dir(model)
+
 
 # 5. 중요 변수 
 print("중요도 : \n{}".format(model.feature_importances_))

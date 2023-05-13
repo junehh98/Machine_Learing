@@ -14,8 +14,9 @@ from sklearn.metrics import accuracy_score # model 평가
 from sklearn.tree import plot_tree, export_graphviz # 시각화도구 
 from graphviz import Source # 외부시각화도구 : pip install graphviz
 
+
 # 1. dataset load 
-path = 'c:/ITWILL/5_Python_ML/data'
+path = '/Users/junehh98/Desktop/itwill/5_Python_ML/data'
 dataset = pd.read_csv(path + "/tree_data.csv")
 print(dataset.info())
 '''
@@ -27,10 +28,13 @@ unidegree  6 non-null int64 - 학위 유무
 smoking    6 non-null int64 - 흡연 유무 - y변수 
 '''
 
+
 # 2. 변수 선택 
 cols = list(dataset.columns)
 X = dataset[cols[:-1]]
 y = dataset[cols[-1]]
+
+
 
 # 3. model & 평가 : gini계수 기준, 트리깊이=3
 model = DecisionTreeClassifier(criterion='gini',
@@ -40,6 +44,8 @@ model = DecisionTreeClassifier(criterion='gini',
 criterion : {"gini", "entropy"}, default="gini" : 중요변수 선정 기준 
 max_depth : int, default=None
 '''
+
+
 dir(model)
 model.get_depth() # 3
 
@@ -48,6 +54,7 @@ print(y_pred)
 
 acc = accuracy_score(y, y_pred)
 print(acc) 
+
 
 
 # 4. tree 시각화 
@@ -60,6 +67,7 @@ plot_tree(model, feature_names = feature_names) # Plots 출력
  level2 : 중요변수 iq 
    left 분류조건 :   incom 24 이상 & iq 105이상(yes : 2) 
 ''' 
+
 
 # 외부 파일 내보내기 & 콘솔 출력
 class_names = ['no', 'yes'] # y변수 class 

@@ -10,7 +10,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score,classification_repo
 
 
 # 단계1 : data set load 
-iris = pd.read_csv("C:/ITWILL/5_Python_ML/data/iris.csv")
+iris = pd.read_csv("/Users/junehh98/Desktop/itwill/5_Python_ML/data/iris.csv")
 
 # 변수명 추출 
 cols=list(iris.columns)
