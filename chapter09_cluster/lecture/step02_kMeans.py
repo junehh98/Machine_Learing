@@ -12,7 +12,7 @@ import numpy as np # array
 
 
 # 1. text file -> dataset 생성 
-file = open('C:/ITWILL/5_Python-II/data/testSet.txt')
+file = open('C:/ITWILL/5_Python_ML/data/testSet.txt')
 lines = file.readlines() # list 반환 
 
 print(lines)
