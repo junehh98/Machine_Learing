@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 '''
 회귀분석용 sklearn dataset 정리 
 '''
@@ -156,7 +156,7 @@ cal_df["MEDV"] = california.target
 cal_df.tail()
 cal_df.info() 
 
-=======
+
 '''
 회귀분석용 sklearn dataset 정리 
 '''
@@ -314,4 +314,4 @@ cal_df["MEDV"] = california.target
 cal_df.tail()
 cal_df.info() 
 
->>>>>>> 32f7d70641783dee9a7f41f16c0d9a0ed6467ceb
+
