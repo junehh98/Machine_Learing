@@ -50,12 +50,3 @@ actual_rating = 0
 for item_id in items :
     svd_pred = model.predict(user_id, item_id, actual_rating)
     print(svd_pred)
-
-
-
-
-
-
-
-
-
