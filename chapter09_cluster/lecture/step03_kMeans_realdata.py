@@ -52,7 +52,7 @@ df.Region.value_counts() # 유통 지역
 '''
 3    316 : 기타 
 1     77 : Lisnon
-2     47 : Oporto 
+2     47 : porto 
 '''
 
 # 연속형 변수 
@@ -67,6 +67,8 @@ X = df.copy()
 # 설명변수 데이터 정규화
 from sklearn.preprocessing import StandardScaler # 표준화 
 X = StandardScaler().fit_transform(X)
+
+
 
 
 ### [Step 4] k-means 군집 모형 - sklearn 사용
@@ -85,10 +87,10 @@ max_iter : int, default=300
 '''
         
 # 모형 학습
-kmeans.fit(X)  # KMeans(n_clusters=5) 
+model = kmeans.fit(X)  # KMeans(n_clusters=5) 
 
 # 군집 예측 
-cluster_labels = kmeans.labels_ # 예측된 레이블(Cluster 번호)    
+cluster_labels = model.labels_ # 예측된 레이블(Cluster 번호)    
 print(cluster_labels)
 
 
@@ -99,8 +101,10 @@ print(df.head())
 
 # 상관관계 분석 
 r = df.corr() # 상관계수가 높은 변수 확인 
-
+r['Grocery'] # Detergents_Paper   0.924641
  
+
+
 # 그래프로 표현 - 시각화
 df.plot(kind='scatter', x='Grocery', y='Detergents_Paper', c='Cluster', 
         cmap='Set1', colorbar=True, figsize=(15, 10))
@@ -116,12 +120,62 @@ print(df.Cluster.value_counts())
 3      2 -> 제거 
 '''
 
-# 새로운 dataset 만들기 : 3,4번 클러스터 제거 예 
-new_df = df[~((df['Cluster'] == 3) | (df['Cluster'] == 4))]
+# 새로운 dataset 만들기 :  클러스터 제거 예 
+new_df = df[~((df['Cluster'] == 3) | (df['Cluster'] == 1))]
 
 new_df.shape # (424, 9)
 
 
 ### [Step 5] 각 cluster별 특성 분석
+new_df.plot(kind='scatter', x='Grocery', y='Detergents_Paper', c='Cluster', 
+        cmap='Set1', colorbar=True, figsize=(15, 10))
+plt.show()  
+
+new_df.Cluster.value_counts()
+'''
+0    207
+4    126
+2     91
+'''
+
+# 군집별 subset
+cluster0 = new_df[new_df.Cluster == 0]
+cluster2 = new_df[new_df.Cluster == 2]
+cluster4 = new_df[new_df.Cluster == 4]
+
+
+cluster0.shape # (207, 9)
+cluster2.shape # (91, 9)
+cluster4.shape # (126, 9)
+
+
+cluster0.Channel.value_counts()
+# 1    207
+cluster0.Region.value_counts()
+# 3    207
+
+cluster0.describe().T
+'''
+Grocery 3635.864734
+Frozen  3413.729469
+Detergents_Paper  749.038647
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -18,6 +18,7 @@ lines = file.readlines() # list 반환
 print(lines)
 
 dataset = [] # 2차원(80x2)
+
 for line in lines : 
     cols = line.split('\t') # tab키 기준 분리 
     
@@ -26,15 +27,20 @@ for line in lines :
         rows.append(float(col)) # 문자열 -> 실수형 변환  
         
     dataset.append(rows) 
-        
+      
+    
 print(dataset) # 중첩 list   
+dataset[0] # [1.658985, 4.285136]
+dataset[-1] # [-4.905566, -2.91107]
 
-# list -> numpy(array) 
+
+# list -> numpy(array) print(dataset_arr)
+#
+# print()
 dataset_arr = np.array(dataset)
 
-dataset_arr.shape # (80, 2)
-print(dataset_arr)
 
+dataset_arr.shape # (80, 2)
 
 # 2. numpy -> DataFrame(column 지정)
 data_df = pd.DataFrame(dataset_arr, columns=['x', 'y'])
@@ -56,7 +62,8 @@ model = obj.fit(data_df) # 학습 수행
 
 
 # 예측치 생성 
-pred = model.predict(data_df) # test set 
+pred = model.labels_ # 예측된 레이블 번호 
+# pred = model.predict(data_df) # test set 
 print(pred) # 0 ~ 3
 
 
@@ -73,6 +80,7 @@ print(centers)
 
 # clusters 시각화 : 예측 결과 확인 
 data_df['predict'] = pred # 칼럼추가 
+
 
 # 산점도 
 plt.scatter(x=data_df['x'], y=data_df['y'], 
