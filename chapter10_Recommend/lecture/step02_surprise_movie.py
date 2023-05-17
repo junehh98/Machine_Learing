@@ -22,9 +22,12 @@ movie_ratings = pd.pivot_table(ratings,
                columns = 'critic',
                values = 'rating').reset_index()
 
+movie_ratings.shape # (6, 7)
+
+
 
 # 3. SVD dataset 
-reader = Reader(rating_scale=(1, 5))
+reader = Reader(rating_scale=(1, 5)) # 범위가 1 ~ 5점 
 data = Dataset.load_from_df(ratings, reader)
 
 
@@ -40,6 +43,9 @@ model = SVD(random_state=123).fit(trainset) # seed값 적용
 # 6. 전체 사용자 평점 예측치 
 all_pred = model.test(testset)
 print(all_pred)
+# Prediction(uid='Jack', iid='Lady', r_ui=3.0, est=3.270719540168945, 
+#            details={'was_impossible': False}
+
 
 
 # 7. Toby 사용자 미관람 영화 추천 예측 
@@ -48,5 +54,36 @@ items = ['Just My','Lady','The Night']
 actual_rating = 0
 
 for item_id in items :
+    # model.predict(추천대상자, 추천아이템, 실제평점, 예상 평점)
     svd_pred = model.predict(user_id, item_id, actual_rating)
     print(svd_pred)
+    
+'''
+user: Toby       item: Just My    r_ui = 0.00   est = 2.88   {'was_impossible': False}
+user: Toby       item: Lady       r_ui = 0.00   est = 3.27   {'was_impossible': False}
+user: Toby       item: The Night  r_ui = 0.00   est = 3.30   {'was_impossible': False} --> 추천
+'''
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
